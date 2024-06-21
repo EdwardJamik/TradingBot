@@ -1,0 +1,1 @@
+export const url = 'https://itsdevelopment-bot.pp.ua'

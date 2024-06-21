@@ -1,0 +1,25 @@
+.top{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 15px 20px 30px;
+  z-index: 9;
+  background: rgba(253, 222, 46);
+
+  & .back_button{
+    position: absolute;
+    left: 10px;
+    max-width: 32px;
+    max-height: 32px;
+  }
+
+  & .breadcrumbs{
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    -webkit-text-stroke: .12px #eee;
+  }
+}

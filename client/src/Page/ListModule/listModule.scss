@@ -1,0 +1,47 @@
+.list_module{
+  & ul{
+    display: flex;
+    padding: 0 16px;
+    & li{
+      width: 100%;
+      & .module{
+        display: flex;
+        padding: 6px;
+        border: 1px dashed rgba(138, 145, 160, 0.4);
+        border-radius: 10px;
+
+        & .image{
+          background: #fdde2e;
+          border-radius: 10px;
+          padding: 10px;
+          max-width: 80px;
+
+          margin-right: 10px;
+          & img{
+            max-width: 60px;
+          }
+        }
+
+        & .description{
+          display: flex;
+          width: 100%;
+          flex-direction: column;
+
+          & h2{
+            font-size: 18px;
+            font-weight: 600;
+          }
+
+          & p{
+            font-size: 16px;
+            font-weight: 400;
+            color: #333;
+          }
+        }
+
+      }
+
+
+    }
+  }
+}
