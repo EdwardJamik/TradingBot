@@ -28,7 +28,7 @@ const ListModule = () => {
                 :
                 <ul>
                     <li style={module ? {background:'rgba(55, 255, 55, 0.1)', borderRadius:'10px'} : {}}>
-                        <Link to={module ? '/' : '/module'}>
+                        <Link to={'/module'}>
                             <div className='module'>
                                 <div className='image'>
                                     <img src="/image/module_1.png" alt="Module 1"/>

@@ -32,8 +32,6 @@ module.exports.getSuccessModule = async (req, res, next) => {
             return res.json(false);
         }
 
-
-
     } catch (error) {
         console.error(error);
         res.status(500).json({ status:false, error: `[${new Date().toLocaleTimeString('uk-UA')}] Something went wrong` });
