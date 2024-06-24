@@ -8,7 +8,7 @@ module.exports.getRegUser = async (req, res, next) => {
 
         const findUser = await User.findOne({chat_id})
 
-        if(findUser?.phone) {
+        if(!findUser?.phone) {
             const {message_id} = await bot.telegram.sendMessage(chat_id, '<b>Поздравляем с завершением курса!</b>\n\nВы узнали много нового об инвестициях и готовы сделать следующий шаг. Для того чтобы наши специалисты могли помочь вам с персональным сопровождением и консультациями, пожалуйста, оставьте свои контактные данные. Наш менеджер свяжется с вами для дальнейших шагов.\n\n<b>Пожалуйста, укажите ваше ФИО</b>', {parse_mode: 'HTML'})
             await bot.telegram.deleteMessage(chat_id, findUser?.message_id)
             await User.updateOne({chat_id}, {message_id, action: 'reg_fullName'})
