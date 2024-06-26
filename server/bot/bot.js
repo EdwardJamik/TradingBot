@@ -36,7 +36,7 @@ bot.command('start', async (ctx) => {
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});
                 const {message_id} = await ctx.replyWithHTML('<b>Поздравляем с завершением курса!</b>\n\nВы узнали много нового об инвестициях и готовы сделать следующий шаг. Для того чтобы наши специалисты могли помочь вам с персональным сопровождением и консультациями, пожалуйста, оставьте свои контактные данные. Наш менеджер свяжется с вами для дальнейших шагов.\n\n<b>Пожалуйста, укажите ваше ФИО</b>', {});
-                await User.updateOne({chat_id}, {message_id})
+                await User.updateOne({chat_id}, {message_id, action:'reg_fullName'})
             } else {
                 ctx.deleteMessage().catch((e) => console.log(e));
                 if(findUser?.message_id)
