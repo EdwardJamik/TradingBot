@@ -31,7 +31,7 @@ bot.command('start', async (ctx) => {
                     }
                 });
                 await User.updateOne({chat_id}, {message_id})
-            } else if(findUser?.action !== 'testModale' && !findUser?.fullName && !findUser?.phone){
+            } else if(findUser?.action !== 'testModale' && !findUser?.fullName || findUser?.action !== 'testModale' && !findUser?.phone){
                 ctx.deleteMessage().catch((e) => console.log(e));
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});
