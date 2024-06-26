@@ -36,7 +36,7 @@ const ListModule = () => {
                                 <div className='description'>
                                     <h2>Модуль 1</h2>
                                     <p>Основы инвестиций</p>
-                                </div>Працює*
+                                </div>
                             </div>
                         </Link>
                     </li>
