@@ -31,7 +31,7 @@ bot.command('start', async (ctx) => {
                     }
                 });
                 await User.updateOne({chat_id}, {message_id})
-            } else if(findUser?.action !== 'testModale'){
+            } else if(findUser?.action !== 'testModale' && !findUser?.fullName && !findUser?.phone){
                 ctx.deleteMessage().catch((e) => console.log(e));
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});
@@ -74,7 +74,7 @@ bot.on(message, async ctx => {
         const user_message = ctx?.message?.text
 
         const findUser = await User?.findOne({chat_id})
-        const regex = /^[\p{L}\p{M}\p{Pd}'’\s]+$/u;
+        const regex = /^[\p{L}\p{M}]+(?:[\s][\p{L}\p{M}]+)*$/u;
 
         if(findUser?.action === 'reg_fullName'){
             if(regex.test(user_message)){
