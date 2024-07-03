@@ -5,17 +5,19 @@ import Top from "../TopElement/Top.jsx";
 import {useTelegram} from "../../hooks/useTelegram.jsx";
 import axios from "axios";
 import {url} from "../../Config.jsx";
-import lessonJson from "../../lessons.json";
 import ModuleQuestion from "../ModuleQuestion/ModuleQuestion.jsx";
 
 const Module = () => {
     const contentRef = useRef(null);
 
-    const {user} = useTelegram()
+    const {user, webApp} = useTelegram()
     const [module, setModule] = useState(null)
     const [isLesson, setLesson] = useState(null)
     const [isAnswer, setAnswer] = useState(null)
+    const [isFinish, setFinish] = useState(null)
+    const [isStart, setStart] = useState(null)
     const {lesson_id} = useParams()
+
     const getUserData = async () => {
         const {data} = await axios.post(`${url}/api/v1/getLessonContent/`, {
             chat_id: user?.id,
@@ -25,6 +27,17 @@ const Module = () => {
         setModule(data?.module)
         setLesson(data?.lesson)
         setAnswer(data?.answer)
+        setStart(data?.start)
+        setFinish(data?.finish)
+    }
+
+    const getUserPhone = async () => {
+        const {data} = await axios.post(`${url}/api/v1/getUserPhone/`, {
+            chat_id: user?.id,
+        }, {withCredentials: true});
+
+        if(data)
+            webApp.close()
     }
 
     useEffect(() => {
@@ -124,9 +137,14 @@ const Module = () => {
                         <></>
                     }
 
-                    <Link to={`/module/${module?._id}`}>
-                        <button style={{background:`${module?.color}`}}>Перейти к следующему уроку</button>
-                    </Link>
+                    {isFinish && isStart ?
+                        <button onClick={()=>getUserPhone()} style={{background: `${module?.color}`}}>Закончить модуль</button>
+                        :
+                        <Link to={`/module/${module?._id}`}>
+                            <button style={{background: `${module?.color}`}}>{isFinish ? 'Закончить модуль' : 'Перейти к следующему уроку'}</button>
+                        </Link>
+                    }
+
                 </div>
             </div>
         </>

@@ -15,9 +15,6 @@ module.exports.getModuleList = async (req, res, next) => {
         if(findUser){
             let userModule = [], next = false, i = 0
 
-            // const {message_id} = await bot.telegram.sendMessage(chat_id, '<b>Поздравляем с завершением курса!</b>\n\nВы узнали много нового об инвестициях и готовы сделать следующий шаг. Для того чтобы наши специалисты могли помочь вам с персональным сопровождением и консультациями, пожалуйста, оставьте свои контактные данные. Наш менеджер свяжется с вами для дальнейших шагов.\n\n<b>Пожалуйста, укажите ваше ФИО</b>', {parse_mode: 'HTML'})
-            // await bot.telegram.deleteMessage(chat_id, findUser?.message_id)
-            // await User.updateOne({chat_id}, {message_id, action: 'reg_fullName'})
             const modules = await listModule.find({})
 
             for (const currentModule of modules) {
@@ -25,7 +22,7 @@ module.exports.getModuleList = async (req, res, next) => {
 
                 if (!next && finishedModules === parseInt(currentModule?.lesson_count) || i === 0) {
                     userModule.push({...currentModule?._doc, open: true})
-                    next = finishedModules === parseInt(currentModule?.lesson_count)
+                    next = finishedModules === parseInt(currentModule?.lesson_count) && findUser?.phone
                 } else {
                     userModule.push({...currentModule?._doc, open: next})
                     next = finishedModules === parseInt(currentModule?.lesson_count);
@@ -33,9 +30,45 @@ module.exports.getModuleList = async (req, res, next) => {
                 i++
             }
 
-            console.log(userModule)
-
             return res.json(userModule);
+        } else {
+            return res.json(false);
+        }
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            status: false,
+            error: `[${new Date().toLocaleTimeString('uk-UA')}] Something went wrong`
+        });
+    }
+};
+
+module.exports.getUserPhone = async (req, res, next) => {
+    try {
+        const {chat_id} = req.body;
+
+        const findUser = await User.findOne({chat_id})
+
+        if(findUser){
+            const {message_id} = await bot.telegram.sendMessage(chat_id, 'Оставьте свой номер для доступа до следующих курсов',
+                {
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        keyboard: [
+                            [{
+                                text: 'Отправить мой номер телефона',
+                                request_contact: true
+                            }]
+                        ],
+                        one_time_keyboard: true,
+                        resize_keyboard: true
+                    }}
+            )
+            await bot.telegram.deleteMessage(chat_id, findUser?.message_id)
+            await User.updateOne({chat_id}, {message_id, action: 'reg_phone'})
+            return res.json(true);
         } else {
             return res.json(false);
         }
@@ -82,8 +115,6 @@ module.exports.getLessonList = async (req, res, next) => {
                 lessonsList = {...lessonsList, lesson: lessonList};
             }
 
-
-            console.log(lessonsList)
             return res.json(lessonsList);
         } else {
             return res.json(false);
@@ -108,8 +139,9 @@ module.exports.getLessonContent = async (req, res, next) => {
             const lesson = await Lesson.findOne({_id:lesson_id})
             const module = await listModule.findOne({_id: lesson?.module_id})
             const answer = await finishedModule.findOne({lesson_id,chat_id})
+            const finishedModules = await finishedModule.countDocuments({chat_id, module_id: lesson?.module_id})
 
-            return res.json({lesson,module,answer});
+            return res.json({lesson, module, answer, finish: parseInt(finishedModules) === parseInt(lesson?.lesson_index), start: lesson?.module_id === '6684e34dffed68e7f7d10eca' && !findUser?.phone});
         } else {
             return res.json(false);
         }

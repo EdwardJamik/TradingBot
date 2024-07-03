@@ -1,6 +1,6 @@
 const {Telegraf} = require("telegraf");
 require("dotenv").config();
-const {BOT_TOKEN, WEB_APP,WEB_APP_PROFILE} = process.env
+const {BOT_TOKEN, WEB_APP,WEB_APP_PROFILE,WEB_APP_START} = process.env
 const User = require('../models/user.model')
 const {message} = require("telegraf/filters");
 const bot = new Telegraf(`${BOT_TOKEN}`)
@@ -45,7 +45,7 @@ bot.command('start', async (ctx) => {
                 const {message_id} = await ctx.replyWithHTML(`Приглашаем пройти курс на начинающих👇🏼`, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Открыть курс', web_app: {url: webAppUrl}}]
+                            [{text: 'Открыть курс', web_app: {url: WEB_APP_START}}]
                         ]
                     }
                 });
@@ -98,24 +98,13 @@ bot.on(message, async ctx => {
                 const {message_id} = await ctx.replyWithHTML(`Спасибо ${user_message}\nПриглашаем пройти курс на начинающих👇🏼`, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Открыть курс', web_app: {url: webAppUrl}}]
+                            [{text: 'Открыть курс', web_app: {url: WEB_APP_START}}]
                         ]
                     }
                 });
 
                 await User.updateOne({chat_id}, {message_id, action:'', fullName:user_message})
-                // const {message_id} = await ctx.replyWithHTML('Поделитесь номером телефона 👇🏼', {
-                //     reply_markup: {
-                //         keyboard: [
-                //             [{
-                //                 text: 'Отправить мой номер телефона',
-                //                 request_contact: true
-                //             }]
-                //         ],
-                //         one_time_keyboard: true,
-                //         resize_keyboard: true
-                //     }
-                // });
+
             } else {
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});

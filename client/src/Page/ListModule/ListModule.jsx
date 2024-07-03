@@ -56,8 +56,6 @@ const ListModule = () => {
                     }
                 </ul>
             }
-
-
         </div>
     );
 };
