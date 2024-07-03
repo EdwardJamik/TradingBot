@@ -141,7 +141,7 @@ module.exports.getLessonContent = async (req, res, next) => {
             const answer = await finishedModule.findOne({lesson_id,chat_id})
             const finishedModules = await finishedModule.countDocuments({chat_id, module_id: lesson?.module_id})
 
-            return res.json({lesson, module, answer, finish: parseInt(finishedModules) === parseInt(lesson?.lesson_index), start: lesson?.module_id === '6684e34dffed68e7f7d10eca' && !findUser?.phone});
+            return res.json({lesson, module, answer, finish: parseInt(finishedModules) === parseInt(lesson?.lesson_index), start: lesson?.module_id === '6684e34dffed68e7f7d10eca' && findUser?.phone === null});
         } else {
             return res.json(false);
         }
