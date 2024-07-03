@@ -26,7 +26,7 @@ const score = [
 
 const Profile = () => {
 
-    const {webApp,user} = useTelegram()
+    const {user} = useTelegram()
     const [isUser, setUserImage] = useState(null)
     const [loading, setLoading] = useState(true)
     const getUserData = async () => {
@@ -34,6 +34,10 @@ const Profile = () => {
         setUserImage(data)
         setLoading(false)
     }
+
+    const message = `Присоединяйся к нам: `
+
+    const encodedMessage = encodeURIComponent(message).replace(/%0A/g, '%0D%0A');
 
     useEffect(() => {
         getUserData()
@@ -46,49 +50,71 @@ const Profile = () => {
                     <div className="profile_photo">
 
                         {loading ? (
-                            <Skeleton.Avatar loading={loading} active size={140} />
+                            <Skeleton.Avatar loading={loading} active size={80}/>
                         ) : (
                             isUser?.photo ?
                                 <img src={`data:image/png;base64,${isUser?.photo}`} alt="User photo"/>
                                 :
-                                <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=42" size={140}/>
+                                <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=42" size={80}/>
 
                         )
                         }
                     </div>
                     <div className='profile_option'>
-                    <h3 className='fullname'>{isUser?.fullName}</h3>
+                        <h3 className='fullname'>{isUser?.fullName}</h3>
                         <span>+380631913251</span>
                     </div>
                 </div>
 
-                <div className="profile_score">
-                    <span className='score'>{score} {(1000).toLocaleString('uk-UA', {
-                        useGrouping: true
-                    })}</span>
+                <ul className="profile_list">
+                    <li>
+                        <div className="title">Уровень</div>
+                        <div className='score'>Beginner</div>
+                    </li>
+                    <li>
+                        <div className="title">Очки</div>
+                        <div className='score'>{(1000).toLocaleString('uk-UA', {
+                            useGrouping: true
+                        })}</div>
+                    </li>
 
-                </div>
+                </ul>
 
-                <div className="profile_level">
-                    <div className='score'>
-                        <span>Beginner</span>
-                    </div>
-                    <div className='level'>
-                        <div className='block_level'>
-                            <span className='active'></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
+                {/*<div>*/}
+                {/*    <a style={{maxWidth: '320px'}}*/}
+                {/*       href={`https://t.me/share/url?url=${message}https://t.me/ton_craft_bot?start=ref${user?.id}`}*/}
+                {/*       className='invited_button' id='invited_button'>*/}
+                {/*        <button>Пригласить</button>*/}
+                {/*    </a>*/}
+                {/*</div>*/}
+
+                {/*<div className="profile_score">*/}
+                {/*    <span className='score'>{score} {(1000).toLocaleString('uk-UA', {*/}
+                {/*        useGrouping: true*/}
+                {/*    })}</span>*/}
+
+                {/*</div>*/}
+
+                {/*<div className="profile_level">*/}
+                {/*    <div className='score'>*/}
+                {/*        <span>Beginner</span>*/}
+                {/*    </div>*/}
+                {/*    <div className='level'>*/}
+                {/*        <div className='block_level'>*/}
+                {/*            <span className='active'></span>*/}
+                {/*            <span></span>*/}
+                {/*            <span></span>*/}
+                {/*            <span></span>*/}
+                {/*            <span></span>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <div className="profile_achievements">
                     <span className='title'>Достижения</span>
                     <ul className='achiv_list'>
                         <li className='active'>
-                            <div className='image'>
+                            <div className='image' style={{background:'#319684'}}>
                                 <span>?</span>
                                 <img src="/image/ach_1.png" alt="achievement 1"/>
                             </div>
@@ -97,7 +123,7 @@ const Profile = () => {
                             </div>
                         </li>
                         <li className='active'>
-                            <div className='image'>
+                            <div className='image' style={{background:'#2a7671'}}>
                                 <span>?</span>
                                 <img src="/image/ach_2.png" alt="achievement 1"/>
                             </div>
@@ -106,7 +132,7 @@ const Profile = () => {
                             </div>
                         </li>
                         <li className='active'>
-                            <div className='image'>
+                            <div className='image' style={{background:'#63c7ff'}}>
                                 <span>?</span>
                                 <img src="/image/ach_3.png" alt="achievement 1"/>
                             </div>
@@ -114,96 +140,96 @@ const Profile = () => {
                                 <span>Стабильная прибыльность</span>
                             </div>
                         </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Выигрыш в соревновании</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Нанят в качестве младшего трейдера</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Удвоение счета за год</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Снижение эмоциональных сделок</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Бэктестинг алгоритмов</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Прибыльный торговый журнал</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Диверсификация активов</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Наставничество трейдеров</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Публикация анализа</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div className='image'>
-                                <span>?</span>
-                                <img src="/image/ach_2.png" alt="achievement 1"/>
-                            </div>
-                            <div className='description'>
-                                <span>Высокий ROI в симуляциях</span>
-                            </div>
-                        </li>
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Выигрыш в соревновании</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Нанят в качестве младшего трейдера</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Удвоение счета за год</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Снижение эмоциональных сделок</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Бэктестинг алгоритмов</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Прибыльный торговый журнал</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Диверсификация активов</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Наставничество трейдеров</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Публикация анализа</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
+                        {/*<li>*/}
+                        {/*    <div className='image'>*/}
+                        {/*        <span>?</span>*/}
+                        {/*        <img src="/image/ach_2.png" alt="achievement 1"/>*/}
+                        {/*    </div>*/}
+                        {/*    <div className='description'>*/}
+                        {/*        <span>Высокий ROI в симуляциях</span>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
                     </ul>
                 </div>
             </div>

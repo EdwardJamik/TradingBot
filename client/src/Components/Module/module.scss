@@ -2,27 +2,27 @@
   position: relative;
   padding: 0 14px 90px;
 
-  &:before{
-    content: " ";
-    position: absolute;
-    top: 0px;
-    left: 20px;
-    right: 0;
-    width: 80%;
-    height: 2px;
-    background: #fdde2e;
-  }
-
-  &:after{
-    content: " ";
-    position: absolute;
-    top: 20px;
-    left: 14px;
-    right: 0;
-    width: 2px;
-    height: 80%;
-    background: #fdde2e;
-  }
+  //&:before{
+  //  content: " ";
+  //  position: absolute;
+  //  top: 0px;
+  //  left: 20px;
+  //  right: 0;
+  //  width: 80%;
+  //  height: 2px;
+  //  background: #fdde2e;
+  //}
+  //
+  //&:after{
+  //  content: " ";
+  //  position: absolute;
+  //  top: 20px;
+  //  left: 14px;
+  //  right: 0;
+  //  width: 2px;
+  //  height: 80%;
+  //  background: #fdde2e;
+  //}
 
   & .module_title{
     display: flex;
@@ -60,8 +60,8 @@
   }
 
   & .module_content{
-    margin-top: 16px;
-    padding: 0 18px;
+    margin-top: 0;
+    padding: 0;
     & p{
       text-align: justify;
 
@@ -85,5 +85,128 @@
   }
   & button{
     margin-top: 20px;
+  }
+}
+
+.list_lesson{
+
+  padding-bottom: 120px;
+
+  & ul{
+
+    padding: 0 16px;
+
+    & li{
+      box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.21);
+      border-radius: 10px;
+      width: 100%;
+
+      &:not(:first-child){
+        margin-top: 20px;
+      }
+
+      & a {
+        & .module {
+          display: flex;
+          border-radius: 10px;
+
+          & .module_content {
+            position: relative;
+            display: flex;
+            min-height: 86px;
+            width: 100%;
+
+            & .image {
+              border-bottom-left-radius: 10px;
+              border-top-left-radius: 10px;
+              padding: 6px;
+              max-width: 86px;
+              width: 100%;
+
+              & img {
+                max-width: 86px;
+                width: 100%;
+              }
+            }
+
+            & .description {
+              position: relative;
+              display: flex;
+              width: 100%;
+              flex-direction: column;
+              padding: 6px 6px 24px;
+              color: #000;
+
+              border-bottom-right-radius: 10px;
+              border-top-right-radius: 10px;
+
+              background: #fff;
+
+              & h2 {
+                font-size: 14px;
+                font-weight: 600;
+              }
+
+
+              & description{
+                position: absolute;
+                left: 6px;
+                bottom: 2px;
+                & > span{
+                  position: relative;
+                  font-size: 12px;
+                  color: #868686;
+
+                  &:last-child{
+                    padding-left: 16px;
+                    &:before{
+                      background-color: #c0c0c0;
+                      border-radius: 50%;
+                      content: " ";
+                      height: 4px;
+                      left: 6px;
+                      position: absolute;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      width: 4px;
+                    }
+                  }
+                }
+              }
+
+
+            }
+
+            & .lock, & .success{
+              position: absolute;
+              right: 12px;
+              bottom: 12px;
+              background: #c0c0c0;
+              border-radius: 100%;
+              padding: 6px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+
+          & .module_bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #fff;
+            padding: 6px 10px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+
+            & > span {
+              display: flex;
+              align-items: center;
+            }
+          }
+        }
+      }
+    }
   }
 }

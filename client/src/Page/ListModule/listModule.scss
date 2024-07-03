@@ -1,47 +1,86 @@
-.list_module{
-  & ul{
-    display: flex;
+.list_module {
+
+  padding-bottom: 120px;
+
+  &.item {
+    padding-bottom: 20px;
+    & ul > li{
+      min-height: 100%;
+    }
+  }
+
+  & ul {
+
     padding: 0 16px;
-    & li{
+
+    & li {
+      box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.21);
+      border-radius: 10px;
+      min-height: 122px;
       width: 100%;
-      & .module{
-        display: flex;
-        padding: 6px;
-        border: 1px dashed rgba(138, 145, 160, 0.4);
+
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+
+      & .module {
         border-radius: 10px;
 
-        & .image{
-          background: #fdde2e;
-          border-radius: 10px;
-          padding: 10px;
-          max-width: 80px;
+        & .module_content {
+          display: flex;
+          align-items: center;
+          min-height: 86px;
 
-          margin-right: 10px;
-          & img{
-            max-width: 60px;
+          & .image {
+            border-radius: 10px;
+            padding: 6px;
+            max-width: 86px;
+            width: 100%;
+
+            & img {
+              max-width: 86px;
+              width: 100%;
+            }
+          }
+
+          & .description {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            padding: 6px;
+            padding-right: 0;
+            color: #fff;
+
+            & h2 {
+              font-size: 18px;
+              font-weight: 600;
+            }
+
+            & p {
+              font-size: 16px;
+              font-weight: 400;
+              //color: #333;
+            }
           }
         }
 
-        & .description{
+        & .module_bottom {
           display: flex;
-          width: 100%;
-          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
 
-          & h2{
-            font-size: 18px;
-            font-weight: 600;
-          }
+          background: #fff;
+          padding: 6px 10px;
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
 
-          & p{
-            font-size: 16px;
-            font-weight: 400;
-            color: #333;
+          & > span {
+            display: flex;
+            align-items: center;
           }
         }
 
       }
-
-
     }
   }
 }

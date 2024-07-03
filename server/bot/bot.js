@@ -31,35 +31,49 @@ bot.command('start', async (ctx) => {
                     }
                 });
                 await User.updateOne({chat_id}, {message_id})
-            } else if(findUser?.action !== 'testModale' && !findUser?.fullName || findUser?.action !== 'testModale' && !findUser?.phone){
-                ctx.deleteMessage().catch((e) => console.log(e));
-                if(findUser?.message_id)
-                    ctx.deleteMessage(findUser?.message_id).catch((e) => {});
-                const {message_id} = await ctx.replyWithHTML('<b>Поздравляем с завершением курса!</b>\n\nВы узнали много нового об инвестициях и готовы сделать следующий шаг. Для того чтобы наши специалисты могли помочь вам с персональным сопровождением и консультациями, пожалуйста, оставьте свои контактные данные. Наш менеджер свяжется с вами для дальнейших шагов.\n\n<b>Пожалуйста, укажите ваше ФИО</b>', {});
-                await User.updateOne({chat_id}, {message_id, action:'reg_fullName'})
-            } else {
-                ctx.deleteMessage().catch((e) => console.log(e));
-                if(findUser?.message_id)
-                    ctx.deleteMessage(findUser?.message_id).catch((e) => {});
-                const {message_id} = await ctx.replyWithHTML('Приветствуем! Для прохождения вводного теста нажмите, пожалуйста, на кнопку 👇🏼', {
+            }
+            // else if(findUser?.action !== 'testModale' && !findUser?.fullName || findUser?.action !== 'testModale' && !findUser?.phone){
+            //     ctx.deleteMessage().catch((e) => console.log(e));
+            //     if(findUser?.message_id)
+            //         ctx.deleteMessage(findUser?.message_id).catch((e) => {});
+            //     const {message_id} = await ctx.replyWithHTML('<b>Поздравляем с завершением курса!</b>\n\nВы узнали много нового об инвестициях и готовы сделать следующий шаг. Для того чтобы наши специалисты могли помочь вам с персональным сопровождением и консультациями, пожалуйста, оставьте свои контактные данные. Наш менеджер свяжется с вами для дальнейших шагов.\n\n<b>Пожалуйста, укажите ваше ФИО</b>', {});
+            //     await User.updateOne({chat_id}, {message_id, action:'reg_fullName'})
+            // }
+            else if(findUser?.fullName !== null && !findUser?.phone){
+                ctx.deleteMessage(findUser?.message_id).catch((e) => {});
+
+                const {message_id} = await ctx.replyWithHTML(`Приглашаем пройти курс на начинающих👇🏼`, {
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Начать тест', web_app: {url: webAppUrl}}]
+                            [{text: 'Открыть курс', web_app: {url: webAppUrl}}]
                         ]
                     }
                 });
-                await User.updateOne({chat_id}, {message_id})
+                await User.updateOne({chat_id}, {message_id, action:''})
+            }
+            else {
+                ctx.deleteMessage().catch((e) => console.log(e));
+                if(findUser?.message_id)
+                    ctx.deleteMessage(findUser?.message_id).catch((e) => {});
+                const {message_id} = await ctx.replyWithHTML('Приветствуем! \n\n<b>Оставьте ваше имя</b> 👇🏼', {
+                    // reply_markup: {
+                    //     inline_keyboard: [
+                    //         [{text: 'Начать тест', web_app: {url: webAppUrl}}]
+                    //     ]
+                    // } Для прохождения вводного теста нажмите, пожалуйста, на кнопку
+                });
+                await User.updateOne({chat_id}, {message_id,action:'reg_fullName'})
             }
         } else{
             ctx.deleteMessage().catch((e) => console.log(e));
-            const {message_id} = await ctx.replyWithHTML('Приветствуем! Для прохождения вводного теста нажмите, пожалуйста, на кнопку 👇🏼', {
-                reply_markup: {
-                    inline_keyboard: [
-                        [{text: 'Начать тест', web_app: {url: webAppUrl}}]
-                    ]
-                }
+            const {message_id} = await ctx.replyWithHTML('Приветствуем! \n\n<b>Оставьте ваше имя</b> 👇🏼', {
+                // reply_markup: {
+                //     inline_keyboard: [
+                //         [{text: 'Начать тест', web_app: {url: webAppUrl}}]
+                //     ]
+                // }
             });
-            await User.create({chat_id, first_name, username, message_id, action: 'testModale'})
+            await User.create({chat_id, first_name, username, message_id, action: 'reg_fullName'})
         }
 
 
@@ -81,25 +95,32 @@ bot.on(message, async ctx => {
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});
 
-                await User.updateOne({chat_id}, {fullName:user_message, action:'reg_phone'})
-                const {message_id} = await ctx.replyWithHTML('Поделитесь номером телефона 👇🏼', {
+                const {message_id} = await ctx.replyWithHTML(`Спасибо ${user_message}\nПриглашаем пройти курс на начинающих👇🏼`, {
                     reply_markup: {
-                        keyboard: [
-                            [{
-                                text: 'Отправить мой номер телефона',
-                                request_contact: true
-                            }]
-                        ],
-                        one_time_keyboard: true,
-                        resize_keyboard: true
+                        inline_keyboard: [
+                            [{text: 'Открыть курс', web_app: {url: webAppUrl}}]
+                        ]
                     }
                 });
-                await User.updateOne({chat_id}, {message_id})
+
+                await User.updateOne({chat_id}, {message_id, action:'', fullName:user_message})
+                // const {message_id} = await ctx.replyWithHTML('Поделитесь номером телефона 👇🏼', {
+                //     reply_markup: {
+                //         keyboard: [
+                //             [{
+                //                 text: 'Отправить мой номер телефона',
+                //                 request_contact: true
+                //             }]
+                //         ],
+                //         one_time_keyboard: true,
+                //         resize_keyboard: true
+                //     }
+                // });
             } else {
                 if(findUser?.message_id)
                     ctx.deleteMessage(findUser?.message_id).catch((e) => {});
 
-                const {message_id} = await ctx.replyWithHTML('Введено не коректный ФИО, укажите ваше ФИО')
+                const {message_id} = await ctx.replyWithHTML('Неккоректно указано имя\n\n<b>Пожалуйста корректное имя 👇🏼</b>')
                 await User.updateOne({chat_id}, {message_id})
             }
 

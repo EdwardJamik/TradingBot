@@ -1,6 +1,6 @@
-.question_page {
+.module_page {
   position: relative;
-  padding: 0 14px 90px;
+  padding: 0 8px 90px;
 
   //&:before{
   //  content: " ";
@@ -24,7 +24,7 @@
   //  background: #fdde2e;
   //}
 
-  & .question_title{
+  & .module_title{
     display: flex;
 
     & .image{
@@ -34,17 +34,6 @@
       max-width: 80px;
 
       margin-right: 10px;
-
-      & > span{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 60px;
-        height: 60px;
-        color: #fff;
-        font-size: 50px;
-      }
-
       & img{
         max-width: 60px;
       }
@@ -70,14 +59,9 @@
 
   }
 
-  & .question_content{
+  & .module_content{
     margin-top: 0;
     padding: 0;
-
-    & h3{
-      font-size: 17px;
-    }
-
     & p{
       text-align: justify;
 
@@ -97,31 +81,54 @@
       }
     }
 
+    & .question {
+      border: 1px solid #838383;
+      border-radius: 20px;
+      padding: 6px 6px 12px;
+      margin-top: 18px;
+
+      & > .question_title {
+        display: flex;
+        align-items: center;
+
+
+        & > img {
+          max-width: 80px;
+          width: 100%;
+          height: 80px;
+        }
+
+        & > div {
+          margin-left: 6px;
+
+          & p {
+            margin-top: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 18px;
+          }
+
+          & > span {
+            color: #838383;
+            font-size: 12px;
+          }
+        }
+      }
+
+      & .answer_list {
+        & .answer{
+          background: transparent;
+          color: #000;
+          font-size: 14px;
+          text-align: justify;
+          font-weight: 400;
+          border: 1px solid rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
 
   }
   & button{
     margin-top: 20px;
-
-    transition: background-color .4s;
-
-    &.answer{
-      background: none;
-      border: 1px solid rgb(253, 222, 46);
-      color: #000;
-      font-weight: 400;
-      text-align: center;
-      text-transform: capitalize;
-      font-size: 14px;
-    }
-
-    &.wait_answer{
-      opacity: .4;
-      background: #ccc;
-    }
-
-    &.next_lesson{
-      opacity: 1;
-      background: rgb(253, 222, 46);
-    }
   }
 }

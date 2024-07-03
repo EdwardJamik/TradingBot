@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 
 :root {
-  font-family: "Lato", sans-serif;
+  font-family: "Roboto", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: #000;
-  background-color: #fff;
+  background-color: #f6f7f8;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -30,27 +30,31 @@
   font-size: 100%;
   vertical-align: baseline;
   line-height: 1.5;
-  font-family: "Lato", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 html{
   margin:0;
   padding:0;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100%;
   padding-top: 90px;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-body {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+#root{
+  width: 100vw;
 }
 
 ol,
@@ -86,6 +90,28 @@ a:active {
   color: #000;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
 button{
   font-size: 18px;
   background: rgb(253, 222, 46);
@@ -95,4 +121,25 @@ button{
   padding: 12px 10px;
   border-radius: 10px;
   color: #fff;
+}
+
+ol {
+  padding: 0 8px;
+  & li {
+    position: relative;
+    margin-bottom: 12px;
+    text-indent: 22px;
+    &:before {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      top: 8px;
+      left: 0;
+      content: " ";
+      border-color: #999999 transparent transparent #999999;
+      border-style: solid;
+      border-width: 4px;
+    }
+  }
+  margin-bottom: 18px;
 }

@@ -7,7 +7,9 @@
   justify-content: center;
   padding: 20px 15px 20px 30px;
   z-index: 9;
-  background: rgba(253, 222, 46);
+  background: #f6f7f8;
+
+  box-shadow: 0 0 12px 4px rgba(0,0,0,0.2);
 
   & .back_button{
     position: absolute;
@@ -17,7 +19,7 @@
   }
 
   & .breadcrumbs{
-    color: #fff;
+    color: #000;
     font-weight: 600;
     font-size: 18px;
     -webkit-text-stroke: .12px #eee;

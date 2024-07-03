@@ -2,8 +2,8 @@ import {useEffect} from "react";
 
 export function useTelegram() {
     const webApp = window.Telegram.WebApp
-    webApp.headerColor = '#fdde2e'
-    webApp.backgroundColor = '#fff'
+    webApp.headerColor = '#f6f7f8'
+    webApp.backgroundColor = '#f6f7f8'
     if (!webApp.isClosingConfirmationEnabled)
         webApp.enableClosingConfirmation()
 
