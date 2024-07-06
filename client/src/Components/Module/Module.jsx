@@ -27,6 +27,7 @@ const Module = () => {
     const {user} = useTelegram()
     const [module, setModule] = useState(null)
     const [isLesson, setLesson] = useState(null)
+    const [isPhone, setPhone] = useState(false)
     const {module_id} = useParams()
     const getUserData = async () => {
         const {data} = await axios.post(`${url}/api/v1/getLessonList/`, {
@@ -36,6 +37,7 @@ const Module = () => {
 
         setModule(data?.module)
         setLesson(data?.lesson)
+        setPhone(data?.phone)
     }
 
     useEffect(() => {
@@ -44,7 +46,7 @@ const Module = () => {
 
     return (
         <>
-            <Top type={'Модуль'} back={'/'}/>
+            <Top type={'Модуль'} back={isPhone ? '/' : `/startModule/${module?._id}`}/>
 
 
             {isLesson === null ?

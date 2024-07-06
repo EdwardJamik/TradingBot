@@ -96,7 +96,7 @@ module.exports.getLessonList = async (req, res, next) => {
             const finishedModules = await finishedModule.countDocuments({chat_id, module_id: module_id})
             const lessons = await Lesson.find({module_id:module_id})
 
-            lessonsList = {...lessonsList, module:{...modules?._doc}}
+            lessonsList = {...lessonsList, module:{...modules?._doc}, phone: findUser?.phone ? true : false}
 
             let foundFirstNotFinished = false;
 
@@ -139,9 +139,8 @@ module.exports.getLessonContent = async (req, res, next) => {
             const lesson = await Lesson.findOne({_id:lesson_id})
             const module = await listModule.findOne({_id: lesson?.module_id})
             const answer = await finishedModule.findOne({lesson_id,chat_id})
-            const finishedModules = await finishedModule.countDocuments({chat_id, module_id: lesson?.module_id})
 
-            return res.json({lesson, module, answer, finish: parseInt(finishedModules) === parseInt(lesson?.lesson_index), start: lesson?.module_id === '6684e34dffed68e7f7d10eca' && findUser?.phone === null});
+            return res.json({lesson, module, answer, finish: parseInt(module?.lesson_count) === parseInt(lesson?.lesson_index), start: lesson?.module_id === '6684e34dffed68e7f7d10eca' && findUser?.phone === null});
         } else {
             return res.json(false);
         }

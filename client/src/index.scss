@@ -34,27 +34,36 @@
 }
 
 html{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   margin:0;
   padding:0;
   overflow: hidden;
   width: 100%;
   height: 100%;
+  //min-height: 100vh;
 }
 
 body {
   position: absolute;
-  left: 0;
-  right: 0;
+  top: 0;
   bottom: 0;
-  width: 100vw;
-  height: 100%;
   padding-top: 90px;
+  width: 100%;
+  height: 100%;
+  //min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 #root{
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+  //min-height: 100vh;
+  z-index: 999999;
 }
 
 ol,
@@ -123,8 +132,16 @@ button{
   color: #fff;
 }
 
+
+h2{
+  font-size: 18px;
+  //margin-bottom: 12px;
+  margin: 18px 0;
+}
+
 ol {
   padding: 0 8px;
+  margin-top: 18px;
   & li {
     position: relative;
     margin-bottom: 12px;

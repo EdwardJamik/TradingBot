@@ -10,6 +10,7 @@ import Registration from "./Page/Registration/Registration.jsx";
 
 import {useTelegram} from "./hooks/useTelegram.jsx";
 import Lesson from "./Components/Lesson/Lesson.jsx";
+import StartModule from "./Components/StartModule/StartModule.jsx";
 function App() {
     const {webApp} = useTelegram()
     const location = useLocation();
@@ -26,6 +27,10 @@ function App() {
         {
             link: '/profile',
             element:<><Top type={'Мой кабинет'}/><Profile/></>,
+        },
+        {
+            link: '/startModule/:module_id',
+            element:<><StartModule/></>,
         },
         {
             link: '/module/:module_id',
